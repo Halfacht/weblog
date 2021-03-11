@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,12 +14,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'PageController@index')->name('index');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', 'PageController@dashboard')->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+Route::resource('weblogs', WeblogController::class)->except(['show'])->middleware(['auth']);
+
+Route::resource('weblogs/{weblog}/comments', CommentController::class)->only(['create', 'store']);
+
+Route::resource('categories', CategoryController::class)->only(['create'])->middleware(['auth']);
+
+Route::get('newsletter-subscription', 'NewsletterSubscriptionController@index')->name('newsletter-subscription-page');
+Route::post('newsletter-subscription/subscribe', 'NewsletterSubscriptionController@store')->name('newsletter-subscribe');
+Route::post('newsletter-subscription/unsubscribe', 'NewsletterSubscriptionController@destroy')->name('newsletter-unsubscribe');
+
+Route::get('subscription', 'SubscriptionController@index')->name('subscription-page')->middleware(['auth']);
+Route::post('subscription/subscribe', 'SubscriptionController@store')->name('subscription-subscribe')->middleware((['auth']));
+Route::post('subscription/unsubscribe', 'SubscriptionController@destroy')->name('subscription-unsubscribe')->middleware(['auth']);
+
+require __DIR__ . '/auth.php';
