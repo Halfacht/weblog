@@ -40,4 +40,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    #region Relationships
+
+    public function subscription() 
+    {
+        return $this->hasOne(Subscription::class);
+    }
+
+    public function blogs()
+    {
+        return $this->hasMany(Blog::class);
+    }
+
+    #endregion
 }
