@@ -18,11 +18,11 @@ Route::get('/', 'PageController@index')->name('index');
 
 Route::get('/dashboard', 'PageController@dashboard')->middleware(['auth'])->name('dashboard');
 
-Route::resource('weblogs', WeblogController::class)->except(['show'])->middleware(['auth']);
+Route::resource('blogs', BlogController::class)->except(['show'])->middleware(['auth']);
 
-Route::resource('weblogs/{weblog}/comments', CommentController::class)->only(['create', 'store']);
+Route::resource('blogs/{blog}/comments', CommentController::class)->only(['store']);
 
-Route::resource('categories', CategoryController::class)->only(['create'])->middleware(['auth']);
+Route::resource('categories', CategoryController::class)->only(['create', 'store'])->middleware(['auth']);
 
 Route::get('newsletter-subscription', 'NewsletterSubscriptionController@index')->name('newsletter-subscription-page');
 Route::post('newsletter-subscription/subscribe', 'NewsletterSubscriptionController@store')->name('newsletter-subscribe');

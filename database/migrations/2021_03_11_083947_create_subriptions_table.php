@@ -16,7 +16,8 @@ class CreateSubriptionsTable extends Migration
         Schema::create('subriptions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->date('end_date');
+            $table->date('last_payment');
+            $table->date('end_date')->nullable();
             $table->timestamps();
         });
     }

@@ -9,7 +9,10 @@ class Subscription extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['end_date'];
+    protected $fillable = [
+        'last_payment',
+        'end_date',
+    ];
 
     #region Relationships
 
