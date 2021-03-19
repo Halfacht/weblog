@@ -1,6 +1,11 @@
 <?php
 
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\NewsletterSubscriptionController;
+use App\Http\Controllers\SubscriptionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,22 +19,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'PageController@index')->name('index');
-
-Route::get('/dashboard', 'PageController@dashboard')->middleware(['auth'])->name('dashboard');
-
-Route::resource('blogs', BlogController::class)->except(['show'])->middleware(['auth']);
-
-Route::resource('blogs/{blog}/comments', CommentController::class)->only(['store']);
-
-Route::resource('categories', CategoryController::class)->only(['create', 'store'])->middleware(['auth']);
-
-Route::get('newsletter-subscription', 'NewsletterSubscriptionController@index')->name('newsletter-subscription-page');
-Route::post('newsletter-subscription/subscribe', 'NewsletterSubscriptionController@store')->name('newsletter-subscribe');
-Route::post('newsletter-subscription/unsubscribe', 'NewsletterSubscriptionController@destroy')->name('newsletter-unsubscribe');
-
-Route::get('subscription', 'SubscriptionController@index')->name('subscription-page')->middleware(['auth']);
-Route::post('subscription/subscribe', 'SubscriptionController@store')->name('subscription-subscribe')->middleware((['auth']));
-Route::post('subscription/unsubscribe', 'SubscriptionController@destroy')->name('subscription-unsubscribe')->middleware(['auth']);
-
-require __DIR__ . '/auth.php';
+Route::get('/{any}', function() {
+    return view('app');
+})->where('any', '.*');

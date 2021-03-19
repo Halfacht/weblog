@@ -10,26 +10,27 @@ use Illuminate\Http\Request;
 class BlogController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Returns a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $blogs = Blog::all();
+			
+        return response()->json($blogs);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return view
-     */
-    public function create()
-    {
-        $blog = new Blog();
+	/**
+	 * Returns a single resource
+	 * 
+	 * @return \Illuminate\Http\Response
+	 */
+	public function show(Blog $blog)
+	{
+		return response()->json($blog);
+	}
 
-        return view('blogs.create', ['blog' => $blog]);
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -39,20 +40,9 @@ class BlogController extends Controller
      */
     public function store(StoreBlogRequest $request)
     {
-        Blog::create($request->validated());
+        $blog = Blog::create($request->validated());
 
-        return redirect()->route('dashboard');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Blog  $blog
-     * @return view
-     */
-    public function edit(Blog $blog)
-    {
-        return view('blogs/create', ['blog' => $blog]);
+        return response()->json(['message' => 'Blog stored succesfully', 'blog' => $blog]);
     }
 
     /**
@@ -64,9 +54,9 @@ class BlogController extends Controller
      */
     public function update(UpdateBlogRequest $request, Blog $blog)
     {
-        $blog->update($request->validated());
+        $blog = $blog->update($request->validated());
 
-        return redirect()->route('dashboard');
+        return resopnse()->json(['message' => 'Blog is succesfully updated', 'blog' => $blog]);
     }
 
     /**
@@ -79,6 +69,6 @@ class BlogController extends Controller
     {
         $blog->delete();
 
-        return redirect()->route('dashboard');
+        return response()->json(['message' => 'Blog is succesfully deleted']);
     }
 }

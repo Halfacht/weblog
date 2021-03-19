@@ -1,0 +1,8 @@
+{
+	"parser": "babel-eslint",
+    "extends": ["eslint:recommended", "plugin:vue/vue3-recommended"],
+    "rules": {
+        "vue/html-self-closing": "off",
+        "indent": "off"
+    }
+}

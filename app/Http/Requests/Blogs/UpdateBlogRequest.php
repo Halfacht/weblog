@@ -14,7 +14,7 @@ class UpdateBlogRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->isWriter();
+        return auth()->user()?->isWriter();
     }
 
     /**
