@@ -9,25 +9,31 @@ export default class Form {
 		this.isSubmitting = false;
         this.wasValidated = false;
 
+		// Data to properties
         for (let field in data) {
             this[field] = data[field];
         }
     }
 
-    data() {
-        let data = Object.assign({}, this);
+	/**
+	 * Data Properties to data object
+	 * 
+	 * @returns Object
+	 */
+    data() {		
+        let data = {};
 
-        delete data.errors;
-        delete data.originalData;
-        delete data.wasValidated;
-
+		for (let field in this.originalData) {
+			data[field] = this[field];
+		}
+		
         return data;
     }
 
     reset() {
-        for (let field in this.originalData) {
+        for (let field in this.originalData) {			
             this[field] = this.originalData[field];
-        }
+        }		
     }
 
     post(url) {
@@ -45,7 +51,7 @@ export default class Form {
 
     onSuccess(response) {
         this.successMessage = response.data.message;
-		this.isSubmitting = fase;
+		this.isSubmitting = false;
 
         this.errors.clear();
 		this.reset();

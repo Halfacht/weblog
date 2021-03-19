@@ -1,22 +1,29 @@
 <template>
-    <div class="container">
-        <create-blog-component></create-blog-component>
+    <nav class="navbar navbar-expand-md navbar-light bg-light mb-4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Weblog</a>
 
-        <div class="row">
-            <div class="col">
-                <ul>
-                    <li v-for="blog in blogs" v-text="blog.title"></li>
-                </ul>
-            </div>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <router-link class="nav-link" :to="{ name: 'home' }"
+                        >Home</router-link
+                    >
+                </li>
+                <li class="nav-item">
+                    <router-link class="nav-link" :to="{ name: 'blogs.create' }"
+                        >New Blog</router-link
+                    >
+                </li>
+            </ul>
         </div>
-    </div>
+    </nav>
+
+    <router-view></router-view>
 </template>
 
 <script>
-import CreateBlogComponent from "./components/CreateBlogComponent.vue";
-
 export default {
-    components: { CreateBlogComponent },
+    components: {},
 
     data() {
         return {
