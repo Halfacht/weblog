@@ -1,3 +1,5 @@
+import Form from '@/utilities/Form';
+
 window._ = require('lodash');
 
 /**
@@ -26,3 +28,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/** Custom */
+
+
+window.Form = Form;

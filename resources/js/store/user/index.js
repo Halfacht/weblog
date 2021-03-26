@@ -1,0 +1,53 @@
+import axios from 'axios';
+import router from '@/routes';
+
+const state = {
+	user: {}
+}
+
+const getters = {
+	user: state => {
+		return state.user;
+	},
+	isWriter: state => {
+		return state.user?.role === '1';
+	},
+	auth: state => {
+		return Object.keys(state.user).length !== 0;
+	}
+}
+
+const mutations = {
+	UPDATE_USER (state, payload) {
+		state.user = payload;
+	}
+}
+
+const actions = {
+	login ({ commit }, data) {
+		return new Promise((resolve, reject) => {
+			axios.post('api/login', data)
+				.then((response) => {
+					commit('UPDATE_USER', response.data.user);
+					resolve(response);
+					router.push('/');
+				}).catch((response) => reject(response));
+		});
+	},
+	logout ({ commit }) {
+		axios.post('api/logout')
+			.then(() => {
+				commit('UPDATE_USER', {});
+				router.push('/');
+			});
+	},
+}
+
+const userModule = {
+	state,
+	getters,
+	mutations,
+	actions,
+}
+
+export default userModule;

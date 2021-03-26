@@ -8,20 +8,37 @@
         "hot": "mix watch --hot",
         "production": "mix --production"
     },
+    "babel": {
+        "presets": [
+            "@babel/preset-env"
+        ]
+    },
+    "ava": {
+        "require": [
+            "babel-register",
+            "./test/helpers/setup-browser-env.js"
+        ]
+    },
     "devDependencies": {
+        "@babel/preset-env": "^7.13.10",
         "@vue/compiler-sfc": "^3.0.7",
         "alpinejs": "^2.7.3",
         "autoprefixer": "^10.1.0",
+        "ava": "^3.15.0",
         "axios": "^0.21",
         "babel-eslint": "^10.1.0",
+        "babel-register": "^7.0",
+        "browser-env": "^3.3.0",
         "eslint": "^7.22.0",
         "eslint-plugin-vue": "^7.7.0",
         "laravel-mix": "^6.0.13",
         "lodash": "^4.17.19",
+        "moment": "^2.29.1",
         "vue-loader": "^16.1.0",
         "vue-router": "^4.0.5"
     },
     "dependencies": {
-        "vue": "^3.0.7"
+        "vue": "^3.0.7",
+        "vuex": "^4.0.0"
     }
 }

@@ -1,13 +1,13 @@
 <template>
     <div class="mb-3">
         <label for="name" class="form-label">{{
-            capitalizeFirstLetter(name)
+            toTitle(name)
         }}</label>
         <input
-            type="text"
             class="form-control"
-            name="name"
-            aria-describedby="name"
+            :type="type"
+            :name="name"
+            :aria-describedby="name"
             :class="{ 'is-invalid': error }"
             :value="modelValue"
             @input="updateValue($event.target.value)"
@@ -17,10 +17,11 @@
 </template>
 
 <script>
-import { capitalizeFirstLetter } from "../../functions.js";
+import { titleCase } from "../../functions.js";
 
 export default {
     props: {
+		type: { default: 'text'},
         modelValue: String,
         name: String,
         error: String,
@@ -28,7 +29,7 @@ export default {
 	emits: ['update:modelValue'],
 
     methods: {
-        capitalizeFirstLetter: capitalizeFirstLetter,
+        toTitle: titleCase,
         updateValue(value) {
             this.$emit("update:modelValue", value);
         },

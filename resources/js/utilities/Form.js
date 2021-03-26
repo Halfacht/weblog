@@ -36,18 +36,19 @@ export default class Form {
         }		
     }
 
-    post(url) {
-        this.submit("post", url);
-    }
+	action(store, action) {
+		return new Promise((resolve, reject) => {
+			this.isValidated();
+			this.isSubmitting = true;
 
-    submit(requestType, url) {
-		this.isValidated();
-		this.isSubmitting = true;
-
-        axios[requestType](url, this.data())
-            .then(this.onSuccess.bind(this))
-            .catch(this.onFail.bind(this));
-    }
+			store.dispatch(action, this.data())
+				.then((response) => {
+					// this.onSuccess.bind(this)
+					resolve(response)
+				})
+				.catch(this.onFail.bind(this));
+		});
+	}
 
     onSuccess(response) {
         this.successMessage = response.data.message;

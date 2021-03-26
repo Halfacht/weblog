@@ -5,10 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Blogs\StoreBlogRequest;
 use App\Http\Requests\Blogs\UpdateBlogRequest;
 use App\Models\Blog;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BlogController extends Controller
 {
+	public function __construct()
+	{
+		$this->middleware('auth')->except(['index', 'show']);
+	}
+
     /**
      * Returns a listing of the resource.
      *
@@ -16,7 +21,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blogs = Blog::all();
+        $blogs = Blog::with('user')->latest()->get();
 			
         return response()->json($blogs);
     }
@@ -40,9 +45,16 @@ class BlogController extends Controller
      */
     public function store(StoreBlogRequest $request)
     {
-        $blog = Blog::create($request->validated());
+		$blog = Auth::user()
+			->blogs()
+			->create($request->validated());
 
-        return response()->json(['message' => 'Blog stored succesfully', 'blog' => $blog]);
+		$blog->load('user');
+
+        return response()->json([
+			'message' => 'Blog stored succesfully', 
+			'blog' => $blog
+			]);
     }
 
     /**
@@ -56,7 +68,7 @@ class BlogController extends Controller
     {
         $blog = $blog->update($request->validated());
 
-        return resopnse()->json(['message' => 'Blog is succesfully updated', 'blog' => $blog]);
+        return response()->json(['message' => 'Blog is succesfully updated', 'blog' => $blog]);
     }
 
     /**
