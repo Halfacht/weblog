@@ -1,60 +1,61 @@
 <template>
-  <div class="container">
-    <form class="row g-3" @keydown="form.errors.clear($event.target.name)">
-      <div class="col">
-        <input-field
-          name="email"
-          type="email"
-          v-model="form.email"
-          :error="form.errors.get('email')"
-        ></input-field>
+    <div class="container">
+        <form class="row g-3" @keydown="form.errors.clear($event.target.name)">
+            <div class="col">
+                <input-field
+                    v-model="form.email"
+                    :error="form.errors.get('email')"
+                    name="email"
+                    type="email"
+                ></input-field>
 
-        <input-field
-          name="password"
-          type="password"
-          v-model="form.password"
-          :error="form.errors.get('password')"
-        ></input-field>
+                <input-field
+                    v-model="form.password"
+                    :error="form.errors.get('password')"
+                    name="password"
+                    type="password"
+                ></input-field>
 
-        <button
-          class="btn btn-success"
-          @click.prevent="login"
-          :disabled="formDisabled"
-        >
-          Login
-        </button>
-      </div>
-    </form>
-  </div>
+                <button
+                    :disabled="formDisabled"
+                    class="btn btn-success"
+                    @click.prevent="login"
+                >
+                    Login
+                </button>
+            </div>
+        </form>
+    </div>
 </template>
 
 <script>
+import router from '@/routes';
 import InputField from "@/components/form-parts/InputField.vue";
 import SuccessMessage from "@/components/parts/SuccessMessage.vue";
 
 export default {
-  components: { InputField, SuccessMessage },
+    components: {InputField, SuccessMessage},
 
-  data() {
-    return {
-      form: new Form({
-        email: "",
-        password: "",
-      }),
-    };
-  },
-
-  computed: {
-    formDisabled() {
-      return this.form.errors.hasErrors() || this.form.isSubmitting;
+    data() {
+        return {
+            form: new Form({
+                email: "",
+                password: "",
+            }),
+        };
     },
-  },
 
-  methods: {
-    login() {
-    //   this.form.post("/api/login");
-	  this.form.action(this.$store, 'login');
+    computed: {
+        formDisabled() {
+            return this.form.errors.hasErrors() || this.form.isSubmitting;
+        },
     },
-  },
+
+    methods: {
+        login() {
+            this.form.action(this.$store, 'login')
+                .then(router.push('/dashboard'));
+        },
+    },
 };
 </script>

@@ -26,7 +26,7 @@ class StoreCommentRequest extends FormRequest
     {
         return [
             'content' => ['required'],
-            'blog_id' => [Rule::exists('blogs')],
+            'blog_id' => ['required', Rule::exists('blogs', 'id')],
         ];
     }
 }
