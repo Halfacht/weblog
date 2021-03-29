@@ -1,7 +1,60 @@
 <template>
-    This is the create category view
+    <div class="container">
+        <success-message :message="form.successMessage"></success-message>
+
+        <div class="row">
+            <div class="col">
+                <h1>Create new Category</h1>
+            </div>
+        </div>
+
+        <form class="row g-3"> <!-- auto clear error -->
+            <div class="col">
+
+                <input-field
+                    v-model="form.name"
+                    :error="form.errors.get('name')"
+                    name="name"
+                ></input-field> <!-- show error -->
+
+                <button
+                    :disabled="formDisabled"
+                    class="btn btn-success"
+                    @click.prevent="storeCategory"
+                >Store Category
+                </button>
+
+            </div>
+        </form>
+    </div>
 </template>
 
 <script>
-export default {}
+import SuccessMessage from "@/components/parts/SuccessMessage.vue";
+import InputField from "@/components/form-parts/InputField.vue";
+
+
+export default {
+    components: {SuccessMessage, InputField},
+
+    data() {
+        return {
+            form: new Form({
+                name: '',
+            })
+        }
+    },
+
+    methods: {
+        storeCategory() {
+            this.form.action(this.$store, 'addCategory');
+        }
+    },
+
+    computed: {
+        formDisabled() {
+            return this.form.errors.hasErrors() || this.form.isSubmitting;
+        },
+    }
+}
 </script>

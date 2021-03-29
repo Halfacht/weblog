@@ -4,31 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Categories\StoreCategoryRequest;
 use App\Models\Category;
+use Illuminate\Http\JsonResponse;
 
 class CategoryController extends Controller
 {
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return View
-     */
-    public function create()
-    {
-        $category = new Category();
-
-        return view('category/create', ['category' => $category]);
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param StoreCategoryRequest $request
-     * @return RedirectResponse
+     * @return JsonResponse
      */
     public function store(StoreCategoryRequest $request)
     {
-        Category::create($request->validated());
+        $category = Category::create($request->validated());
 
-        return redirect()->route('dashboard');
+        return response()->json([
+            'message' => 'Category saved successful',
+            'category' => $category,
+        ]);
     }
 }

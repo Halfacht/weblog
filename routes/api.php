@@ -35,11 +35,11 @@ Route::post('newsletter-subscription/unsubscribe', [NewsletterSubscriptionContro
 # Auth Middleware
 Route::middleware(['auth'])->group(function () {
 
-    Route::resource('category', CategoryController::class)->only(['create', 'store'])->middleware(['auth']);
+    Route::resource('categories', CategoryController::class)->only(['store']);
 
-    Route::get('subscription', [SubscriptionController::class, 'index'])->name('subscription-page')->middleware(['auth']);
-    Route::post('subscription/subscribe', [SubscriptionController::class, 'store'])->name('subscription-subscribe')->middleware((['auth']));
-    Route::post('subscription/unsubscribe', [SubscriptionController::class, 'destroy'])->name('subscription-unsubscribe')->middleware(['auth']);
+    Route::get('subscription', [SubscriptionController::class, 'index'])->name('subscription-page');
+    Route::post('subscription/subscribe', [SubscriptionController::class, 'store'])->name('subscription-subscribe');
+    Route::post('subscription/unsubscribe', [SubscriptionController::class, 'destroy'])->name('subscription-unsubscribe');
 });
 
 # Writers Middleware

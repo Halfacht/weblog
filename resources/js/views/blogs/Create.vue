@@ -1,5 +1,11 @@
 <template>
     <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Create new Blog</h1>
+            </div>
+        </div>
+
         <success-message :message="form.successMessage"></success-message>
 
         <form class="row g-3" @keydown="form.errors.clear($event.target.name)">
@@ -69,16 +75,12 @@ export default {
             this.id ? this.updateBlog() : this.storeBlog();
         },
         storeBlog() {
-            this.form.action(this.$store, 'addBlog')
-                .then((response) => {
-                    this.form.onSuccess(response);
-                });
+            this.form.action(this.$store, 'addBlog');
+
         },
         updateBlog() {
-            this.form.action(this.$store, 'updateBlog')
-                .then((response) => {
-                    this.form.onSuccess(response);
-                });
+            this.form.action(this.$store, 'updateBlog');
+
         }
     },
 

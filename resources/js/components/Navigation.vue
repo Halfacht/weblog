@@ -10,19 +10,25 @@
                     </router-link>
                 </li>
 
-                <li v-if="isWriter" class="nav-item">
-                    <router-link :to="{ name: 'dashboard' }" class="nav-link">
-                        Dashboard
-                    </router-link>
-                </li>
-                <li v-if="isWriter" class="nav-item">
-                    <router-link :to="{ name: 'blogs.create' }" class="nav-link">
-                        New Blog
-                    </router-link>
-                </li>
-                <li>
-                    <button @click="test">Test</button>
-                </li>
+                <template v-if="isWriter">
+
+                    <li class="nav-item">
+                        <router-link :to="{ name: 'dashboard' }" class="nav-link">
+                            Dashboard
+                        </router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link :to="{ name: 'blogs.create' }" class="nav-link">
+                            New Blog
+                        </router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link :to="{ name: 'categories.create' }" class="nav-link">
+                            New Category
+                        </router-link>
+                    </li>
+
+                </template>
             </ul>
 
             <div class="float-end">
@@ -63,12 +69,7 @@ export default {
         ...mapActions([
             'logout'
         ]),
-        test() {
 
-            this.$store.dispatch('getBlogsFromAuthUser');
-
-
-        }
     },
 };
 </script>
