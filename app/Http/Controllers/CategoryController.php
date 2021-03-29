@@ -16,13 +16,13 @@ class CategoryController extends Controller
     {
         $category = new Category();
 
-        return view('categories/create', ['category' => $category]);
+        return view('category/create', ['category' => $category]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  StoreCategoryRequest  $request
+     * @param StoreCategoryRequest $request
      * @return RedirectResponse
      */
     public function store(StoreCategoryRequest $request)

@@ -19,7 +19,7 @@
                 <button
                     :disabled="formDisabled"
                     class="btn btn-success"
-                    @click.prevent="storeBlog"
+                    @click.prevent="submit"
                 >
                     {{ id ? 'Update Blog' : 'Store Blog' }}
                 </button>
@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex";
 import InputField from "@/components/form-parts/InputField.vue";
 import TextAreaField from "@/components/form-parts/TextAreaField.vue";
 import SuccessMessage from "@/components/parts/SuccessMessage.vue";
@@ -40,12 +41,13 @@ export default {
 
     data() {
         return {
-            form: new Form({
-                title: "",
-                content: "",
+            defaultData: {
+                title: '',
+                content: '',
                 image: null,
                 is_premium: false,
-            }),
+            },
+            form: new Form(this.defaultData),
         };
     },
 
@@ -53,15 +55,44 @@ export default {
         formDisabled() {
             return this.form.errors.hasErrors() || this.form.isSubmitting;
         },
+        blog() {
+            if (this.id) {
+                return this.$store.getters.blog;
+            } else {
+                return this.defaultData;
+            }
+        },
     },
 
     methods: {
+        submit() {
+            this.id ? this.updateBlog() : this.storeBlog();
+        },
         storeBlog() {
             this.form.action(this.$store, 'addBlog')
                 .then((response) => {
                     this.form.onSuccess(response);
                 });
         },
+        updateBlog() {
+            this.form.action(this.$store, 'updateBlog')
+                .then((response) => {
+                    this.form.onSuccess(response);
+                });
+        }
+    },
+
+
+    watch: {
+        blog: function () {
+            this.form = new Form(this.blog);
+        }
+    },
+
+    created() {
+        if (this.id) {
+            this.$store.dispatch('getBlog', this.id);
+        }
     },
 };
 </script>

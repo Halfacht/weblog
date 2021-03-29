@@ -28,7 +28,6 @@ class UpdateBlogRequest extends FormRequest
             'title' => ['required', 'string'],
             'content' => ['required'],
             'image' => ['nullable', 'image'],
-            'user_id' => [Rule::exists('users')],
             'is_premium' => ['nullable', 'boolean'],
         ];
     }

@@ -5,6 +5,7 @@ import Register from './views/Register.vue';
 import Dashboard from './views/Dashboard';
 import CreateBlog from "./views/blogs/Create.vue";
 import ShowBlog from "./views/blogs/Show.vue";
+import CreateCategory from './views/categories/Create.vue';
 
 const routes = [
     {
@@ -43,6 +44,11 @@ const routes = [
         name: "blogs.show",
         component: ShowBlog,
         props: true,
+    },
+    {
+        path: "/categories/create",
+        name: "categories.create",
+        component: CreateCategory,
     }
 ];
 

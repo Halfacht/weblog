@@ -3,7 +3,6 @@ import router from '@/routes';
 
 const state = {
     user: {},
-    userBlogs: [],
 }
 
 const getters = {
@@ -16,18 +15,12 @@ const getters = {
     auth: state => {
         return state.user.hasOwnProperty('id');
     },
-    userBlogs: state => {
-        return state.userBlogs;
-    }
 }
 
 const mutations = {
     UPDATE_USER(state, payload) {
         state.user = payload;
     },
-    UPDATE_BLOGS(state, payload) {
-        state.userBlogs = payload;
-    }
 }
 
 const actions = {
@@ -47,13 +40,7 @@ const actions = {
                 router.push('/');
             });
     },
-    getBlogsFromAuthUser({commit, getters},) {
-        console.log(getters.user.id);
-        if (getters.user.id) {
-            axios.get(`/api/users/${getters.user.id}/blogs`)
-                .then((response) => commit('UPDATE_BLOGS', response.data))
-        }
-    },
+
 }
 
 const userModule = {

@@ -24,7 +24,7 @@
                         </router-link>
                     </td>
                     <td>
-                        <button class="btn btn-danger" @click="delete(blog.id)">Delete</button>
+                        <button class="btn btn-danger" @click="remove(blog)">Delete</button>
                     </td>
                 </tr>
 
@@ -53,8 +53,10 @@ export default {
         formatDate(date) {
             return moment(date).format('DD-MMMM-yyyy');
         },
-        delete(id) {
-            console.log('delete item: ' + id);
+        remove(blog) {
+            if (confirm(`Are you sure you want to delete: "${blog.title}"`)) {
+                this.$store.dispatch('deleteBlog', blog.id);
+            }
         }
     },
 
