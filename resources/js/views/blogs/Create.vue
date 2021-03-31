@@ -23,20 +23,13 @@
                 ></text-area-field>
 
                 <select-field
+                    v-model="form.categories"
                     :error="form.errors.get('categories')"
+                    :options="categories"
+                    aria-describedby="categories"
                     name="categories"
                 >
-                    <select
-                        v-model="form.categories"
-                        :class="{ 'is-invalid': form.errors.get('categories') }"
-                        aria-describedby="categories"
-                        class="form-select"
-                        multiple
-                    >
-                        <option v-for="option in categories" :value="option.id">
-                            {{ option.name }}
-                        </option>
-                    </select>
+
                 </select-field>
 
                 <button

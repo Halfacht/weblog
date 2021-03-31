@@ -10,6 +10,8 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+    #region Attributes
+
     use HasFactory, Notifiable, HasRoles;
 
     /**
@@ -42,9 +44,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    #endregion Attributes
+
     #region Relationships
 
-    public function subscription() 
+    public function subscription()
     {
         return $this->hasOne(Subscription::class);
     }
@@ -52,6 +56,15 @@ class User extends Authenticatable
     public function blogs()
     {
         return $this->hasMany(Blog::class);
+    }
+
+    #endregion Relationships
+
+    # region Scopes
+
+    public function scopeWriters($query)
+    {
+        return $query->where('role', 1);
     }
 
     #endregion

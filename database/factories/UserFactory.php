@@ -34,13 +34,27 @@ class UserFactory extends Factory
     /**
      * Indicate that the model's email address should be unverified.
      *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     * @return Factory
      */
     public function unverified()
     {
         return $this->state(function (array $attributes) {
             return [
                 'email_verified_at' => null,
+            ];
+        });
+    }
+
+    /**
+     * Indicate that the user is a writer
+     *
+     * @return Factory
+     */
+    public function writer()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'role' => 1,
             ];
         });
     }

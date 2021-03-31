@@ -14,7 +14,6 @@ class StoreBlogRequest extends FormRequest
      */
     public function authorize()
     {
-		return true; // temp
         return auth()->user()?->isWriter();
     }
 
@@ -31,6 +30,7 @@ class StoreBlogRequest extends FormRequest
             'image' => ['nullable', 'image'],
             'user_id' => [Rule::exists('users', 'id')],
             'is_premium' => ['nullable', 'boolean'],
+            'categories' => ['required', 'array', Rule::exists('categories', 'id')],
         ];
     }
 }

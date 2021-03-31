@@ -4,19 +4,19 @@
             {{ toTitle(name) }}
         </label>
         <slot>
-            <!--            <select-->
-            <!--                :aria-describedby="name"-->
-            <!--                :class="{ 'is-invalid': error }"-->
-            <!--                :name="name"-->
-            <!--                :value="modelValue"-->
-            <!--                class="form-control"-->
-            <!--                multiple-->
-            <!--                @update="updateValue($event.target.value)"-->
-            <!--            >-->
-            <!--                <option v-for="option in options" :value="option.id">-->
-            <!--                    {{ option.name }}-->
-            <!--                </option>-->
-            <!--            </select>-->
+            <select
+                :aria-describedby="name"
+                :class="{ 'is-invalid': error }"
+                :name="name"
+                :value="modelValue"
+                class="form-select"
+                multiple
+                @input="updateValue($event.target)"
+            >
+                <option v-for="option in options" :value="option.id">
+                    {{ option.name }}
+                </option>
+            </select>
         </slot>
         <div v-if="error" class="invalid-feedback" v-text="error"></div>
     </div>
@@ -27,17 +27,21 @@ import {titleCase} from "../../functions.js";
 
 export default {
     props: {
-        modelValue: String,
+        modelValue: Array,
         name: String,
         error: String,
         options: Array,
+        multiple: String,
     },
     emits: ['update:modelValue'],
 
     methods: {
         toTitle: titleCase,
-        updateValue(value) {
-            this.$emit("update:modelValue", value);
+        updateValue(select) {
+            let value = [...select.selectedOptions].map(option => option.value);
+            console.log(value)
+
+            this.$emit("update:modelValue", value); // @todo: this unselects current options, because of that only 2 options can be stored in the model
         },
     },
 };

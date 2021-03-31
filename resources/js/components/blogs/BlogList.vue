@@ -60,10 +60,8 @@ export default {
         }
     },
 
-    watch: {
-        'user': function () {
-            this.$store.dispatch('getBlogsFromAuthUser');
-        },
+    created() {
+        this.$store.dispatch('getBlogsFromAuthUser');
     },
 };
 </script>

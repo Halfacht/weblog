@@ -17,12 +17,19 @@ class Blog extends Model
         'is_premium',
     ];
 
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['user', 'categories'];
+
     #region Relationships
 
     public function user()
     {
         return $this->belongsTo(User::class)
-			->select(['id', 'name']);
+            ->select(['id', 'name']);
     }
 
     public function comments()
@@ -32,7 +39,7 @@ class Blog extends Model
 
     public function categories()
     {
-        return $this->hasMany(Category::class);
+        return $this->belongsToMany(Category::class);
     }
 
     #endregion

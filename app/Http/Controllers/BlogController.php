@@ -21,9 +21,9 @@ class BlogController extends Controller
      *
      * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        $blogs = Blog::with(['user', 'comments'])->latest()->get();
+        $blogs = Blog::latest()->get();
 
         return response()->json($blogs);
     }
@@ -31,9 +31,10 @@ class BlogController extends Controller
     /**
      * Returns a single resource
      *
+     * @param Blog $blog
      * @return JsonResponse
      */
-    public function show(Blog $blog)
+    public function show(Blog $blog): JsonResponse
     {
         $blog->load('user', 'comments');
 
@@ -47,11 +48,13 @@ class BlogController extends Controller
      * @param StoreBlogRequest $request
      * @return JsonResponse
      */
-    public function store(StoreBlogRequest $request)
+    public function store(StoreBlogRequest $request): JsonResponse
     {
         $blog = Auth::user()
             ->blogs()
             ->create($request->validated());
+
+        $blog->categories()->attach($request['categories']);
 
         $blog->load('user');
 
@@ -81,7 +84,7 @@ class BlogController extends Controller
      * @param Blog $blog
      * @return JsonResponse
      */
-    public function destroy(Blog $blog)
+    public function destroy(Blog $blog): JsonResponse
     {
         $blog->delete();
 
@@ -94,7 +97,7 @@ class BlogController extends Controller
      * @param User $user
      * @return JsonResponse
      */
-    public function byUser(User $user)
+    public function byUser(User $user): JsonResponse
     {
         $blogs = $user->blogs()->with(['user', 'comments'])->latest()->get();
 

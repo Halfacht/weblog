@@ -1,11 +1,11 @@
 <template>
-    <div class="row">
+    <div class="row mb-3">
         <div class="col">
             <div class="card">
                 <div class="card-body">
                     {{ comment.content }}
                 </div>
-                <div class="card-footer mb-2 text-muted">{{ momentAgo }}</div>
+                <div class="card-footer text-muted">{{ momentAgo }}</div>
             </div>
         </div>
     </div>

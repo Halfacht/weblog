@@ -18,7 +18,7 @@
             </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="row mb-5">
             <div class="col">
                 <create-comment :blogId="id"></create-comment>
             </div>
