@@ -9,12 +9,24 @@ use Illuminate\Http\JsonResponse;
 class CategoryController extends Controller
 {
     /**
+     * Returns a listing of the resource
+     *
+     * @return JsonResponse
+     */
+    public function index(): JsonResponse
+    {
+        $categories = Category::all();
+
+        return response()->json($categories);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param StoreCategoryRequest $request
      * @return JsonResponse
      */
-    public function store(StoreCategoryRequest $request)
+    public function store(StoreCategoryRequest $request): JsonResponse
     {
         $category = Category::create($request->validated());
 

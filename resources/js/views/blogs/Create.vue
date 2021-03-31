@@ -22,6 +22,23 @@
                     name="content"
                 ></text-area-field>
 
+                <select-field
+                    :error="form.errors.get('categories')"
+                    name="categories"
+                >
+                    <select
+                        v-model="form.categories"
+                        :class="{ 'is-invalid': form.errors.get('categories') }"
+                        aria-describedby="categories"
+                        class="form-select"
+                        multiple
+                    >
+                        <option v-for="option in categories" :value="option.id">
+                            {{ option.name }}
+                        </option>
+                    </select>
+                </select-field>
+
                 <button
                     :disabled="formDisabled"
                     class="btn btn-success"
@@ -36,37 +53,34 @@
 
 <script>
 import {mapGetters} from "vuex";
+import SuccessMessage from "@/components/parts/SuccessMessage.vue";
 import InputField from "@/components/form-parts/InputField.vue";
 import TextAreaField from "@/components/form-parts/TextAreaField.vue";
-import SuccessMessage from "@/components/parts/SuccessMessage.vue";
+import SelectField from "@/components/form-parts/SelectField.vue";
+
+const defaultData = {
+    title: '',
+    content: '',
+    categories: [],
+    image: null,
+    is_premium: false,
+};
 
 export default {
-    components: {InputField, TextAreaField, SuccessMessage},
+    components: {InputField, TextAreaField, SelectField, SuccessMessage},
 
     props: ['id'],
 
     data() {
         return {
-            defaultData: {
-                title: '',
-                content: '',
-                image: null,
-                is_premium: false,
-            },
-            form: new Form(this.defaultData),
+            form: new Form(defaultData),
         };
     },
 
     computed: {
+        ...mapGetters(['categories']),
         formDisabled() {
             return this.form.errors.hasErrors() || this.form.isSubmitting;
-        },
-        blog() {
-            if (this.id) {
-                return this.$store.getters.blog;
-            } else {
-                return this.defaultData;
-            }
         },
     },
 
@@ -75,6 +89,7 @@ export default {
             this.id ? this.updateBlog() : this.storeBlog();
         },
         storeBlog() {
+            console.log(this.form);
             this.form.action(this.$store, 'addBlog');
 
         },
@@ -84,16 +99,15 @@ export default {
         }
     },
 
-
-    watch: {
-        blog: function () {
-            this.form = new Form(this.blog);
-        }
-    },
-
     created() {
+        this.$store.dispatch('getCategories');
+
+        // Load Blog for Update
         if (this.id) {
-            this.$store.dispatch('getBlog', this.id);
+            this.$store.dispatch('getBlog', this.id)
+                .then(() =>
+                    this.form = new Form(this.$store.getters.blog)
+                );
         }
     },
 };

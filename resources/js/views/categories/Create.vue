@@ -8,7 +8,7 @@
             </div>
         </div>
 
-        <form class="row g-3"> <!-- auto clear error -->
+        <form class="row g-3" @keydown="form.errors.clear($event.target.name)"> <!-- auto clear error -->
             <div class="col">
 
                 <input-field

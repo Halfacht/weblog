@@ -7,7 +7,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" doNotAsk="true">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="DONT_SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
@@ -143,7 +143,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/js/components/blogs" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/js/components/form-parts" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -154,6 +154,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Repositories\weblog\resources\js\components\form-parts" />
       <recent name="C:\Repositories\weblog\resources\js\components\blogs" />
       <recent name="C:\Repositories\weblog\resources\js\views" />
     </key>
@@ -174,6 +175,7 @@
       <updated>1617006623611</updated>
       <workItem from="1617006631414" duration="1603000" />
       <workItem from="1617008285367" duration="17097000" />
+      <workItem from="1617178675658" duration="7016000" />
     </task>
     <servers />
   </component>

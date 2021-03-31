@@ -55,10 +55,14 @@ const actions = {
         }
     },
     getBlog({commit}, id) {
-        axios.get('/api/blogs/' + id)
-            .then((response) => {
-                commit('UPDATE_BLOG', response.data)
-            });
+        return new Promise((resolve, reject) => {
+            axios.get('/api/blogs/' + id)
+                .then((response) => {
+                    commit('UPDATE_BLOG', response.data);
+                    resolve(response);
+                });
+
+        })
     },
     addBlog({commit}, data) {
         return new Promise((resolve, reject) => {

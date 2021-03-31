@@ -7,14 +7,16 @@
                     :error="form.errors.get('email')"
                     name="email"
                     type="email"
-                ></input-field>
+                >
+                </input-field>
 
                 <input-field
                     v-model="form.password"
                     :error="form.errors.get('password')"
                     name="password"
                     type="password"
-                ></input-field>
+                >
+                </input-field>
 
                 <button
                     :disabled="formDisabled"
@@ -39,8 +41,8 @@ export default {
     data() {
         return {
             form: new Form({
-                email: "",
-                password: "",
+                email: "alwin@mail.com", // @todo: make empty string after testing
+                password: "testtest",
             }),
         };
     },
@@ -54,7 +56,7 @@ export default {
     methods: {
         login() {
             this.form.action(this.$store, 'login')
-                .then(router.push('/dashboard'));
+                .then(() => router.push('/dashboard'));
         },
     },
 };

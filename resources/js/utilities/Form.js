@@ -43,12 +43,11 @@ export default class Form {
 
             store.dispatch(action, this.data())
                 .then((response) => {
-                    this.onSuccess.bind(this);
+                    this.onSuccess(response);
                     resolve(response);
                 })
                 .catch((error) => {
-                    this.onFail.bind(this);
-                    reject(error);
+                    this.onFail(error);
                 });
         });
     }

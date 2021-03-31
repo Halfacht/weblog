@@ -10,16 +10,16 @@ export default class Errors {
     }
 
     clear(field) {
-		if (field) {
-			delete this.errors[field];
-		} else {
-			this.errors = {};
-		}
+        if (field) {
+            delete this.errors[field];
+        } else {
+            this.errors = {};
+        }
     }
 
-	has(field) {
-		return this.errors.hasOwnProperty(field);
-	}
+    has(field) {
+        return this.errors.hasOwnProperty(field);
+    }
 
     hasErrors() {
         return Object.keys(this.errors).length > 0;

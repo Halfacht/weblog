@@ -35,7 +35,7 @@ Route::post('newsletter-subscription/unsubscribe', [NewsletterSubscriptionContro
 # Auth Middleware
 Route::middleware(['auth'])->group(function () {
 
-    Route::resource('categories', CategoryController::class)->only(['store']);
+    Route::resource('categories', CategoryController::class)->only(['index', 'store']);
 
     Route::get('subscription', [SubscriptionController::class, 'index'])->name('subscription-page');
     Route::post('subscription/subscribe', [SubscriptionController::class, 'store'])->name('subscription-subscribe');
