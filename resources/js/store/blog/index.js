@@ -1,8 +1,8 @@
 import axios from 'axios';
+import Blog from "../../models/Blog";
 
 const state = {
     blogs: [],
-    blog: {},
     userBlogs: [],
 }
 
@@ -10,11 +10,12 @@ const getters = {
     blogs: state => {
         return state.blogs;
     },
-    blog: state => {
-        return state.blog;
-    },
     blogById: (state) => (id) => {
-        return state.blogs.find((blog) => blog.id === id);
+        if (typeof id === 'string') {
+            id = parseInt(id)
+        }
+
+        return state.blogs.find(blog => blog.id === id) ?? new Blog();
     },
     userBlogs: state => {
         return state.userBlogs;
@@ -29,17 +30,17 @@ const mutations = {
         state.userBlogs = payload;
     },
     ADD_BLOG(state, payload) {
-        state.blogs = [...state.blogs, payload];
+        state.blogs = [...state.blogs, new Blog(payload)];
     },
     UPDATE_BLOG(state, payload) {
         state.blog = payload;
     },
     DELETE_BLOG(state, id) {
-        state.blogs = state.blogs.filter(blog => blog.id !== id);
-        state.userBlogs = state.userBlogs.filter(blog => blog.id !== id);
+        state.blogs = state.blogs.filter((blog) => blog.id !== id);
+        state.userBlogs = state.userBlogs.filter((blog) => blog.id !== id);
     },
     ADD_COMMENT(state, payload) {
-        state.blogs.comments = [...state.blogs.comments, payload];
+        state.blog.comments = [...state.blog.comments, payload];
     },
 }
 
@@ -56,12 +57,13 @@ const actions = {
     },
     getBlog({commit}, id) {
         return new Promise((resolve, reject) => {
+
             axios.get('/api/blogs/' + id)
                 .then((response) => {
-                    commit('UPDATE_BLOG', response.data);
+                    commit('ADD_BLOG', response.data);
+                    // commit('UPDATE_BLOG', response.data);
                     resolve(response);
                 });
-
         })
     },
     addBlog({commit}, data) {

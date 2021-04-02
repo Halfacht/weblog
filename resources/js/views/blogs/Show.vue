@@ -8,12 +8,12 @@
                             <h3 class="h3">
                                 {{ blog.title }}
                             </h3>
-                            <p>Categories: {{ categories }}</p>
+                            <p>Categories: {{ blog.categoriesAsString }}</p>
                         </div>
 
                         <div class="float-end">
-                            <p>By: {{ username }}</p>
-                            <p>{{ createdOn }}</p>
+                            <p>By: {{ blog.user?.name }}</p>
+                            <p>{{ blog.momentAgo }}</p>
 
                         </div>
                     </div>
@@ -46,20 +46,14 @@ export default {
     props: ["id"],
 
     computed: {
-        ...mapGetters(["blog"]),
+        ...mapGetters(["blogCategories"]),
 
-        momentAgo() {
-            return moment(this.blog.created_at).fromNow();
+        blog() {
+            return this.$store.getters.blogById(this.id);
         },
-        categories() {
-            return this.blog.categories?.map((category) => category.name).join(', ');
-        },
-        username() {
-            return this.blog.user?.name;
-        }
     },
 
-    created() {
+    mounted() {
         this.$store.dispatch("getBlog", this.id);
     },
 };
