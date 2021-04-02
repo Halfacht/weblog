@@ -1,11 +1,5 @@
 <?php
 
-use App\Http\Controllers\PageController;
-use App\Http\Controllers\BlogController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\NewsletterSubscriptionController;
-use App\Http\Controllers\SubscriptionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/{any}', function() {
+Route::get('/{any}', function () {
     return view('app');
 })->where('any', '.*');

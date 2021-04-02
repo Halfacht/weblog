@@ -18,10 +18,12 @@ class CommentController extends Controller
     public function store(StoreCommentRequest $request)
     {
         $comment = Comment::create($request->validated());
+        $comment->load(['blog.comments']);
 
         return response()->json([
             'message' => 'Comment created succesfully',
             'comment' => $comment,
+            'blog' => $comment->blog,
         ]);
     }
 }

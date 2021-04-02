@@ -1,9 +1,10 @@
 import axios from 'axios';
 import Blog from "../../models/Blog";
+import BlogCollection from "../../collections/BlogCollection";
 
 const state = {
-    blogs: [],
-    userBlogs: [],
+    blogs: new BlogCollection(),
+    userBlogs: [], // @todo: remove and use filter
 }
 
 const getters = {
@@ -20,27 +21,36 @@ const getters = {
     userBlogs: state => {
         return state.userBlogs;
     },
+    indexOfBlog: state => (id) => {
+        console.log('searching index')
+        let i = state.blogs.findIndex((blog) => blog.id === id);
+        console.log(i);
+        return i
+    }
 }
 
 const mutations = {
     UPDATE_BLOGS(state, payload) {
-        state.blogs = payload;
+        state.blogs = new BlogCollection(payload.map((blog) => new Blog(blog)));
     },
     UPDATE_USER_BLOGS(state, payload) {
-        state.userBlogs = payload;
+        state.userBlogs = payload.map((blog) => new Blog(blog));
     },
     ADD_BLOG(state, payload) {
         state.blogs = [...state.blogs, new Blog(payload)];
     },
     UPDATE_BLOG(state, payload) {
-        state.blog = payload;
+        console.log('updating blog')
+        console.log(payload);
+        console.log('new blog')
+        console.log(new Blog(payload));
+        let i = state.blogs.findIndex((blog) => blog.id === payload.id);
+        state.blogs[i] = new Blog(payload);
+        console.log('blog updated')
     },
     DELETE_BLOG(state, id) {
         state.blogs = state.blogs.filter((blog) => blog.id !== id);
         state.userBlogs = state.userBlogs.filter((blog) => blog.id !== id);
-    },
-    ADD_COMMENT(state, payload) {
-        state.blog.comments = [...state.blog.comments, payload];
     },
 }
 
@@ -97,7 +107,9 @@ const actions = {
         return new Promise((resolve, reject) => {
             axios.post(`/api/blogs/${data.blog_id}/comments`, data)
                 .then((response) => {
-                    commit('ADD_COMMENT', response.data.comment);
+                    console.log('response.data in action: ')
+                    console.log(response.data)
+                    commit('UPDATE_BLOG', response.data.blog);
                     resolve(response);
                 }).catch((response) => reject(response));
         });

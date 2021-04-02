@@ -8,7 +8,7 @@
                             <h3 class="h3">
                                 {{ blog.title }}
                             </h3>
-                            <p>Categories: {{ blog.categoriesAsString }}</p>
+                            <p>Categories: {{ blog.categories.toString() }}</p>
                         </div>
 
                         <div class="float-end">
@@ -39,6 +39,7 @@ import {mapGetters} from "vuex";
 import moment from "moment";
 import Comment from "@/components/blogs/Comment.vue";
 import CreateComment from "@/components/blogs/CreateComment.vue";
+import BlogCollection from "../../collections/BlogCollection";
 
 export default {
     components: {Comment, CreateComment},

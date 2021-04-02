@@ -1,4 +1,5 @@
 import moment from "moment";
+import CategoryCollection from "../collections/CategoryCollection";
 
 const defaultData = {
     title: '',
@@ -15,6 +16,7 @@ export default class Blog {
 
     constructor(blog = defaultData) {
         Object.assign(this, blog);
+        this.categories = new CategoryCollection(blog.categories);
     }
 
     static get defaultData() {
