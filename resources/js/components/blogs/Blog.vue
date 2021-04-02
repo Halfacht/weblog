@@ -13,12 +13,12 @@
                         {{ blog.title }}
                     </router-link>
                 </h3>
-                <p>Categories: {{ categories }}</p>
+                <p>Categories: {{ blog.categories?.toString() }}</p>
             </div>
 
             <div class="float-end">
-                <p>By: {{ blog.user.name }}</p>
-                <p>{{ createdOn }}</p>
+                <p>By: {{ blog.user?.name }}</p>
+                <p>{{ blog.momentAgo }}</p>
 
             </div>
         </div>
@@ -29,18 +29,8 @@
 </template>
 
 <script>
-import moment from "moment";
 
 export default {
     props: ["blog"],
-
-    computed: {
-        createdOn() {
-            return moment(this.blog.created_at).fromNow();
-        },
-        categories() {
-            return this.blog.categories.map((category) => category.name).join(', ');
-        }
-    },
 };
 </script>

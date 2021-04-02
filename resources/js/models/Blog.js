@@ -17,6 +17,11 @@ export default class Blog {
     constructor(blog = defaultData) {
         Object.assign(this, blog);
         this.categories = new CategoryCollection(blog.categories);
+
+        console.log('in blog')
+        console.log(this)
+        console.log(this.categories)
+        console.log(this.categories.toString())
     }
 
     static get defaultData() {
@@ -25,10 +30,6 @@ export default class Blog {
 
     get momentAgo() {
         return moment(this.created_at).fromNow();
-    }
-
-    get categoriesAsString() {
-        return this.categories.map((category) => category.name).join(', ');
     }
 }
 

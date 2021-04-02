@@ -4,17 +4,17 @@
 
 <script>
 import BlogComponent from "./Blog";
-import { mapGetters } from "vuex";
+import {mapGetters} from "vuex";
 
 export default {
-  components: { BlogComponent },
+    components: {BlogComponent},
 
-  computed: {
-    ...mapGetters(["blogs"]),
-  },
+    computed: {
+        ...mapGetters(["blogs"]),
+    },
 
-  created() {
-    this.$store.dispatch("getBlogs");
-  },
+    created() {
+        this.$store.dispatch("getBlogs");
+    },
 };
 </script>

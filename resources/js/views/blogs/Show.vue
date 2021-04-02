@@ -2,25 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <div class="float-start">
-                            <h3 class="h3">
-                                {{ blog.title }}
-                            </h3>
-                            <p>Categories: {{ blog.categories.toString() }}</p>
-                        </div>
-
-                        <div class="float-end">
-                            <p>By: {{ blog.user?.name }}</p>
-                            <p>{{ blog.momentAgo }}</p>
-
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        {{ blog.content }}
-                    </div>
-                </div>
+                <blog :blog="blog"></blog>
             </div>
         </div>
 
@@ -36,13 +18,12 @@
 
 <script>
 import {mapGetters} from "vuex";
-import moment from "moment";
-import Comment from "@/components/blogs/Comment.vue";
-import CreateComment from "@/components/blogs/CreateComment.vue";
-import BlogCollection from "../../collections/BlogCollection";
+import Blog from "../../components/blogs/Blog";
+import Comment from "../../components/blogs/Comment.vue";
+import CreateComment from "../../components/blogs/CreateComment.vue";
 
 export default {
-    components: {Comment, CreateComment},
+    components: {Blog, Comment, CreateComment},
 
     props: ["id"],
 

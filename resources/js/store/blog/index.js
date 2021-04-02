@@ -32,6 +32,7 @@ const getters = {
 const mutations = {
     UPDATE_BLOGS(state, payload) {
         state.blogs = new BlogCollection(payload.map((blog) => new Blog(blog)));
+        console.log('updated')
     },
     UPDATE_USER_BLOGS(state, payload) {
         state.userBlogs = payload.map((blog) => new Blog(blog));
@@ -40,13 +41,9 @@ const mutations = {
         state.blogs = [...state.blogs, new Blog(payload)];
     },
     UPDATE_BLOG(state, payload) {
-        console.log('updating blog')
-        console.log(payload);
-        console.log('new blog')
-        console.log(new Blog(payload));
         let i = state.blogs.findIndex((blog) => blog.id === payload.id);
         state.blogs[i] = new Blog(payload);
-        console.log('blog updated')
+        // @todo: use Collection
     },
     DELETE_BLOG(state, id) {
         state.blogs = state.blogs.filter((blog) => blog.id !== id);
