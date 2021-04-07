@@ -6,11 +6,6 @@ export default class CategoryCollection extends Collection {
     }
 
     toString() {
-        return 'a string';
-        // @todo: map over this object.
-        let tmp = this.map((category) => category.name);
-        console.log('tostring')
-        console.log(tmp)
-        return tmp.join(', ');
+        return Object.values(this).map((category) => category.name).join(', ');
     }
 }

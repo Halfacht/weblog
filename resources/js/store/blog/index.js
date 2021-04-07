@@ -16,37 +16,29 @@ const getters = {
             id = parseInt(id)
         }
 
-        return state.blogs.find(blog => blog.id === id) ?? new Blog();
+        return state.blogs[id] ?? new Blog();
     },
     userBlogs: state => {
         return state.userBlogs;
     },
-    indexOfBlog: state => (id) => {
-        console.log('searching index')
-        let i = state.blogs.findIndex((blog) => blog.id === id);
-        console.log(i);
-        return i
-    }
 }
 
 const mutations = {
     UPDATE_BLOGS(state, payload) {
-        state.blogs = new BlogCollection(payload.map((blog) => new Blog(blog)));
+        state.blogs = BlogCollection.fromArray(payload);
         console.log('updated')
     },
     UPDATE_USER_BLOGS(state, payload) {
-        state.userBlogs = payload.map((blog) => new Blog(blog));
+        state.userBlogs = BlogCollection.fromArray(payload);
     },
     ADD_BLOG(state, payload) {
         state.blogs = [...state.blogs, new Blog(payload)];
     },
     UPDATE_BLOG(state, payload) {
-        let i = state.blogs.findIndex((blog) => blog.id === payload.id);
-        state.blogs[i] = new Blog(payload);
-        // @todo: use Collection
+        state.blogs[payload.id] = new Blog(payload);
     },
     DELETE_BLOG(state, id) {
-        state.blogs = state.blogs.filter((blog) => blog.id !== id);
+        state.blogs = [...state.blogs].splice(id, 1);
         state.userBlogs = state.userBlogs.filter((blog) => blog.id !== id);
     },
 }
