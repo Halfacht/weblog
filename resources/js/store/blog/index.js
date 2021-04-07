@@ -4,11 +4,13 @@ import BlogCollection from "../../collections/BlogCollection";
 
 const state = {
     blogs: new BlogCollection(),
-    userBlogs: [], // @todo: remove and use filter
+    userBlogs: {},
 }
 
 const getters = {
     blogs: state => {
+        // console.log('blogs', state.blogs);
+        // console.log('categories', state.blogs[1].categories())
         return state.blogs;
     },
     blogById: (state) => (id) => {
@@ -19,19 +21,13 @@ const getters = {
         return state.blogs[id] ?? new Blog();
     },
     userBlogs(state, getters, rootState) {
-
-        console.log('rootState', rootState);
-        console.log('user', rootState.user);
-        return state.blogs.filter((blog) => blog.user_id === rootState.user.id)
+        return state.blogs.byUser(rootState.user.user.id);
     },
 }
 
 const mutations = {
     UPDATE_BLOGS(state, payload) {
         state.blogs = new BlogCollection(payload);
-    },
-    UPDATE_USER_BLOGS(state, payload) {
-        state.userBlogs = new BlogCollection(payload);
     },
     ADD_BLOG(state, payload) {
         state.blogs.add(new Blog(payload))
@@ -49,12 +45,12 @@ const actions = {
         axios.get('/api/blogs')
             .then((response) => commit('UPDATE_BLOGS', response.data));
     },
-    getBlogsFromAuthUser({commit, getters},) {
-        if (getters.user.id) {
-            axios.get(`/api/users/${getters.user.id}/blogs`)
-                .then((response) => commit('UPDATE_USER_BLOGS', response.data))
-        }
-    },
+    // getBlogsFromAuthUser({commit, getters},) {
+    //     if (getters.user.id) {
+    //         axios.get(`/api/users/${getters.user.id}/blogs`)
+    //             .then((response) => commit('UPDATE_BLOGS', response.data))
+    //     }
+    // },
     getBlog({commit}, id) {
         return new Promise((resolve, reject) => {
 

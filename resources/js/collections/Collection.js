@@ -21,4 +21,10 @@ export default class Collection {
     delete(id) {
         delete this[id];
     }
+
+    filter(predicate) {
+        return Object.fromEntries(
+            Object.entries(this).filter(predicate)
+        )
+    }
 }

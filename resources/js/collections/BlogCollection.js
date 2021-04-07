@@ -3,10 +3,10 @@ import Blog from "../models/Blog";
 
 export default class BlogCollection extends Collection {
     constructor(blogs = []) {
-        super(blogs);
+        super(blogs.map((blog) => new Blog(blog)));
     }
 
-    static fromArray(blogs) {
-        return new BlogCollection(blogs.map((blog) => new Blog(blog)));
+    byUser(id) {
+        return this.filter(([key, blog]) => blog.user.id === id)
     }
 }

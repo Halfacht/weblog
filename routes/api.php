@@ -23,6 +23,8 @@ Route::get('/skills', function () {
     return ['Laravel', 'Vue', 'PHP', 'JavaScript'];
 });
 
+Route::resource('categories', CategoryController::class)->only(['index', 'store']);
+
 Route::resource('blogs', BlogController::class)->except(['create', 'edit']);
 Route::get('users/{user}/blogs', [BlogController::class, 'byUser']);
 
@@ -35,7 +37,6 @@ Route::post('newsletter-subscription/unsubscribe', [NewsletterSubscriptionContro
 # Auth Middleware
 Route::middleware(['auth'])->group(function () {
 
-    Route::resource('categories', CategoryController::class)->only(['index', 'store']);
 
     Route::get('subscription', [SubscriptionController::class, 'index'])->name('subscription-page');
     Route::post('subscription/subscribe', [SubscriptionController::class, 'store'])->name('subscription-subscribe');

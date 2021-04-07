@@ -14,6 +14,11 @@ export default {
         store() { // @todo: remove for production
             return this.$store.state;
         }
-    }
+    },
+
+    created() {
+        this.$store.dispatch("getBlogs");
+        this.$store.dispatch("getCategories");
+    },
 };
 </script>

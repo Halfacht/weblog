@@ -92,7 +92,7 @@ export default {
     },
 
     created() {
-        this.$store.dispatch('getCategories');
+        // this.$store.dispatch('getCategories');
 
         // Load Blog for Update
         if (this.id) {
