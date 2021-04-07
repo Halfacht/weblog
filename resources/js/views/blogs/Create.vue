@@ -82,7 +82,6 @@ export default {
             this.id ? this.updateBlog() : this.storeBlog();
         },
         storeBlog() {
-            console.log(this.form);
             this.form.action(this.$store, 'addBlog');
 
         },

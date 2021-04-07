@@ -43,7 +43,6 @@ export default class Form {
 
             store.dispatch(action, this.data())
                 .then((response) => {
-                    console.log('in form')
                     this.onSuccess(response);
                     resolve(response);
                 })
@@ -54,9 +53,6 @@ export default class Form {
     }
 
     onSuccess(response) {
-        console.log('in on success')
-        console.log(response)
-        console.log(response.data)
         this.successMessage = response.data.message;
         this.isSubmitting = false;
 

@@ -7,6 +7,6 @@ export default class BlogCollection extends Collection {
     }
 
     static fromArray(blogs) {
-        return new this(blogs.map((blog) => new Blog(blog)));
+        return new BlogCollection(blogs.map((blog) => new Blog(blog)));
     }
 }

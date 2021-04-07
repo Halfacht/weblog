@@ -17,11 +17,6 @@ export default class Blog {
     constructor(blog = defaultData) {
         Object.assign(this, blog);
         this.categories = new CategoryCollection(blog.categories);
-
-        console.log('in blog')
-        console.log(this)
-        console.log(this.categories)
-        console.log(this.categories.toString())
     }
 
     static get defaultData() {

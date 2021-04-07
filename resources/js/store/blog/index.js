@@ -18,28 +18,29 @@ const getters = {
 
         return state.blogs[id] ?? new Blog();
     },
-    userBlogs: state => {
-        return state.userBlogs;
+    userBlogs(state, getters, rootState) {
+
+        console.log('rootState', rootState);
+        console.log('user', rootState.user);
+        return state.blogs.filter((blog) => blog.user_id === rootState.user.id)
     },
 }
 
 const mutations = {
     UPDATE_BLOGS(state, payload) {
-        state.blogs = BlogCollection.fromArray(payload);
-        console.log('updated')
+        state.blogs = new BlogCollection(payload);
     },
     UPDATE_USER_BLOGS(state, payload) {
-        state.userBlogs = BlogCollection.fromArray(payload);
+        state.userBlogs = new BlogCollection(payload);
     },
     ADD_BLOG(state, payload) {
-        state.blogs = [...state.blogs, new Blog(payload)];
+        state.blogs.add(new Blog(payload))
     },
     UPDATE_BLOG(state, payload) {
-        state.blogs[payload.id] = new Blog(payload);
+        state.blogs.update(payload.id, new Blog(payload));
     },
     DELETE_BLOG(state, id) {
-        state.blogs = [...state.blogs].splice(id, 1);
-        state.userBlogs = state.userBlogs.filter((blog) => blog.id !== id);
+        state.blogs.delete(id);
     },
 }
 
@@ -60,7 +61,6 @@ const actions = {
             axios.get('/api/blogs/' + id)
                 .then((response) => {
                     commit('ADD_BLOG', response.data);
-                    // commit('UPDATE_BLOG', response.data);
                     resolve(response);
                 });
         })
@@ -96,8 +96,6 @@ const actions = {
         return new Promise((resolve, reject) => {
             axios.post(`/api/blogs/${data.blog_id}/comments`, data)
                 .then((response) => {
-                    console.log('response.data in action: ')
-                    console.log(response.data)
                     commit('UPDATE_BLOG', response.data.blog);
                     resolve(response);
                 }).catch((response) => reject(response));
