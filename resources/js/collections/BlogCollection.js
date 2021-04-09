@@ -11,6 +11,9 @@ export default class BlogCollection extends Collection {
     }
 
     filteredBy(filterIds) {
+
+        console.log('filterids', filterIds);
+        return this;
         if (filterIds.length > 0) {
             return this.filter((blog) => {
                 return filterIds.some(id => blog.categories.includesId(id));

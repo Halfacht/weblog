@@ -1,5 +1,6 @@
 <template>
-    <blogs-filter @updateFilter="updateFilter"></blogs-filter>
+    <blogs-filter v-model="filter"></blogs-filter>
+    <p>filter: {{ filter }}</p>
     <blog-component v-for="blog in blogs" :blog="blog"></blog-component>
 </template>
 
@@ -13,20 +14,14 @@ export default {
 
     data() {
         return {
-            filters: [],
+            filter: [],
         }
     },
 
     computed: {
         blogs() {
-            return this.$store.getters.blogs.filteredBy(this.filters);
+            return this.$store.getters.blogs.filteredBy(this.filter);
         }
     },
-
-    methods: {
-        updateFilter(value) {
-            this.filters = value;
-        },
-    }
 };
 </script>
