@@ -6,10 +6,10 @@
             <div v-for="category in categories" class="form-check form-check-inline form-switch">
                 <input
                     :id="category.name"
-                    :checked="modelValue[category.id]"
+                    v-model="filters"
+                    :value="category.id"
                     class="form-check-input"
                     type="checkbox"
-                    @change="updateFilter(category.id)"
                 >
                 <label :for="category.name" class="form-check-label">{{ category.name }}</label>
             </div>
@@ -25,29 +25,24 @@
 import {mapGetters} from "vuex";
 
 export default {
-    props: ['modelValue'],
-    emits: ['updateFilter', 'clearFilters'],
-
+    emits: ['updateFilter'],
     data() {
         return {
-            allSwitch: true,
+            filters: [],
         }
     },
-
     computed: {
         ...mapGetters(['categories']),
-
-
     },
-
     methods: {
-        updateFilter(id) {
-            this.$emit('updateFilter', id, !this.modelValue[id]);
-        },
         clearFilters() {
-            this.$emit('clearFilters');
+            this.filters = [];
         }
     },
-
+    watch: {
+        filters(newFilters, oldFilters) {
+            this.$emit('updateFilter', newFilters);
+        }
+    }
 }
 </script>

@@ -10,11 +10,13 @@ export default class BlogCollection extends Collection {
         return this.filter((blog) => blog.user.id === id)
     }
 
-    filteredBy(filters) {
-        let categoryFiltersIds = Object.keys(filters).filter(key => filters[key]).map(key => parseInt(key));
+    filteredBy(filterIds) {
+        if (filterIds.length > 0) {
+            return this.filter((blog) => {
+                return filterIds.some(id => blog.categories.includesId(id));
+            })
 
-        return this.filter((blog) => {
-            return categoryFiltersIds.some(id => blog.categories.includesId(id));
-        })
+        }
+        return this;
     }
 }
