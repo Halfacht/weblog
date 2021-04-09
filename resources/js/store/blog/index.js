@@ -9,8 +9,6 @@ const state = {
 
 const getters = {
     blogs: state => {
-        // console.log('blogs', state.blogs);
-        // console.log('categories', state.blogs[1].categories())
         return state.blogs;
     },
     blogById: (state) => (id) => {

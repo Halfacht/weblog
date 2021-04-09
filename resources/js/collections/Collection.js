@@ -23,8 +23,18 @@ export default class Collection {
     }
 
     filter(predicate) {
-        return Object.fromEntries(
-            Object.entries(this).filter(predicate)
-        )
+        let result = Object.assign({}, this);
+        for (let key in this) {
+            if (this.hasOwnProperty(key)) {
+                if (!predicate(this[key])) {
+                    delete result[key];
+                }
+            }
+        }
+        return result;
+    }
+
+    includesId(id) {
+        return this.hasOwnProperty(id);
     }
 }

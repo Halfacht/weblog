@@ -59,9 +59,5 @@ export default {
             }
         }
     },
-
-    created() {
-        this.$store.dispatch('getBlogsFromAuthUser');
-    },
 };
 </script>

@@ -2,10 +2,6 @@
     <div class="row mb-4">
         <div class="col">
             <p>Category Filters:</p>
-            <!--            <div class="form-check form-check-inline form-switch">-->
-            <!--                <input id="allSwitch" v-model="allSwitch" class="form-check-input" type="checkbox">-->
-            <!--                <label class="form-check-label" for="allSwitch">All</label>-->
-            <!--            </div>-->
 
             <div v-for="category in categories" class="form-check form-check-inline form-switch">
                 <input
@@ -18,7 +14,7 @@
                 <label :for="category.name" class="form-check-label">{{ category.name }}</label>
             </div>
             <div>
-                X clear filters // @todo: clear filter button. Show everything when there is no filter.
+                <button class="btn btn-outline-secondary" @click="clearFilters">X Clear filters</button>
             </div>
         </div>
     </div>
@@ -30,7 +26,7 @@ import {mapGetters} from "vuex";
 
 export default {
     props: ['modelValue'],
-    emits: ['updateFilter'],
+    emits: ['updateFilter', 'clearFilters'],
 
     data() {
         return {
@@ -48,6 +44,10 @@ export default {
         updateFilter(id) {
             this.$emit('updateFilter', id, !this.modelValue[id]);
         },
+        clearFilters() {
+            this.$emit('clearFilters');
+        }
     },
+
 }
 </script>

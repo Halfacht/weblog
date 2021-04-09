@@ -1,5 +1,5 @@
 <template>
-    <blogs-filter v-model="filters" @updateFilter="updateFilter"></blogs-filter>
+    <blogs-filter v-model="filters" @clearFilters="clearFilters" @updateFilter="updateFilter"></blogs-filter>
     <p>Filters: {{ filters }}</p>
     <blog-component v-for="blog in blogs" :blog="blog"></blog-component>
 </template>
@@ -14,19 +14,26 @@ export default {
 
     data() {
         return {
-            filters: {},
+            filters: {
+                2: true,
+                3: true,
+            },
         }
     },
 
     computed: {
-        ...mapGetters(["blogs"]),
+        blogs() {
+            return this.$store.getters.blogs.filteredBy(this.filters);
+        }
     },
 
     methods: {
         updateFilter(id, value) {
-            // @todo: remove key from object.
             this.filters[id] = value;
-        }
+        },
+        clearFilters() {
+            this.filters = {};
+        },
     }
 };
 </script>
