@@ -1,6 +1,5 @@
 <template>
     <blogs-filter v-model="filter"></blogs-filter>
-    <p>filter: {{ filter }}</p>
     <blog-component v-for="blog in blogs" :blog="blog"></blog-component>
 </template>
 
