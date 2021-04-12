@@ -21,10 +21,12 @@ export default class Form {
      * @returns Object
      */
     data() {
-        let data = {};
+        let data = new FormData();
 
-        for (let field in this.originalData) {
-            data[field] = this[field];
+        for (let key in this.originalData) {
+            console.log(key, this[key]);
+
+            data.append(key, this[key])
         }
 
         return data;

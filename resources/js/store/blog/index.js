@@ -61,7 +61,11 @@ const actions = {
     },
     addBlog({commit}, data) {
         return new Promise((resolve, reject) => {
-            axios.post('/api/blogs', data)
+            axios.post('/api/blogs', data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
                 .then((response) => {
                     commit('ADD_BLOG', response.data.blog);
                     resolve(response);
@@ -70,7 +74,11 @@ const actions = {
     },
     updateBlog({commit}, data) {
         return new Promise((resolve, reject) => {
-            axios.put(`/api/blogs/${data.id}`, data)
+            axios.put(`/api/blogs/${data.id}`, data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
                 .then((response) => {
                     commit('UPDATE_BLOG', response.data.blog);
                     resolve(response);

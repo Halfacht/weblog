@@ -8,6 +8,8 @@ use App\Models\Blog;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\Console\Input\Input;
 
 class BlogController extends Controller
 {
@@ -50,11 +52,19 @@ class BlogController extends Controller
      */
     public function store(StoreBlogRequest $request): JsonResponse
     {
+        if ($request['image']) {
+            $path = Storage::putFile('images', $request->file('image'));
+//            $path = $request->file('image')->store('images');
+//            $path = Storage::put($request->file('image')->getClientOriginalName(), $request['image']);
+            $request['image'] = $path;
+        }
+
         $blog = Auth::user()
             ->blogs()
             ->create($request->validated());
 
         $blog->categories()->attach($request['categories']);
+
 
         $blog->load('user');
 

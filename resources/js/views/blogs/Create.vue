@@ -29,8 +29,15 @@
                     aria-describedby="categories"
                     name="categories"
                 >
-
                 </select-field>
+
+                <input-field
+                    :error="form.errors.get('image')"
+                    accept="image"
+                    name="image"
+                    type="file"
+                    @change="setImage($event)"
+                ></input-field>
 
                 <button
                     :disabled="formDisabled"
@@ -88,6 +95,11 @@ export default {
         updateBlog() {
             this.form.action(this.$store, 'updateBlog');
 
+        },
+        setImage(event) {
+            this.form.errors.clear('image');
+            this.form.image = event.target.files[0];
+            console.log(this.form.image)
         }
     },
 
