@@ -30,19 +30,15 @@ Route::get('users/{user}/blogs', [BlogController::class, 'byUser']);
 
 Route::resource('blogs/{blog}/comments', CommentController::class)->only(['store']);
 
-Route::get('newsletter-subscription', [NewsletterSubscriptionController::class, 'index'])->name('newsletter-subscription-page');
 Route::post('newsletter-subscription/subscribe', [NewsletterSubscriptionController::class, 'store'])->name('newsletter-subscribe');
 Route::post('newsletter-subscription/unsubscribe', [NewsletterSubscriptionController::class, 'destroy'])->name('newsletter-unsubscribe');
 
 # Auth Middleware
 Route::middleware(['auth'])->group(function () {
 
-
-    Route::get('subscription', [SubscriptionController::class, 'index'])->name('subscription-page');
     Route::post('subscription/subscribe', [SubscriptionController::class, 'store'])->name('subscription-subscribe');
     Route::post('subscription/unsubscribe', [SubscriptionController::class, 'destroy'])->name('subscription-unsubscribe');
 });
 
-# Writers Middleware
 
 require __DIR__ . '/auth.php';

@@ -136,6 +136,7 @@
       <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher" />
       <path value="$PROJECT_DIR$/vendor/symfony/var-dumper" />
       <path value="$PROJECT_DIR$/vendor/laravel/telescope" />
+      <path value="$PROJECT_DIR$/vendor/wildbit/swiftmailer-postmark" />
     </include_path>
   </component>
   <component name="ProjectId" id="1qQKx40ny1QqJr1zZueSBjKkZaR" />
@@ -147,7 +148,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/js/collections" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/js/store/subscription" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -158,6 +159,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Repositories\weblog\resources\js\store\subscription" />
       <recent name="C:\Repositories\weblog\resources\js\collections" />
       <recent name="C:\Repositories\weblog\resources\js\components\form-parts" />
       <recent name="C:\Repositories\weblog\resources\js\components\blogs" />
@@ -185,6 +187,8 @@
       <workItem from="1617783305307" duration="20601000" />
       <workItem from="1617956064152" duration="14104000" />
       <workItem from="1617970726807" duration="3963000" />
+      <workItem from="1618215357383" duration="741000" />
+      <workItem from="1618216269195" duration="9849000" />
     </task>
     <servers />
   </component>

@@ -5,43 +5,38 @@ namespace App\Http\Controllers;
 use App\Http\Requests\NewsletterSubscriptions\DestroyNewsletterSubscriptionRequest;
 use App\Http\Requests\NewsletterSubscriptions\StoreNewsletterSubscriptionRequest;
 use App\Models\NewsletterSubscription;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class NewsletterSubscriptionController extends Controller
 {
     /**
-     * Display a Newsletter Subscription Page
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return view('newsletter-subscription.index');
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
-     * @param  NewsletterSubscriptionRequest  $request
-     * @return RedirectResponse
+     * @param StoreNewsletterSubscriptionRequest $request
+     * @return JsonResponse
      */
     public function store(StoreNewsletterSubscriptionRequest $request)
     {
         NewsletterSubscription::create($request->validated());
 
-        return redirect()->back();
+        return response()->json([
+            'message' => 'subscribing was successful'
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  DestroyNewsletterSubscriptionRequest  $request
-     * @return RedirectReponse
+     * @param DestroyNewsletterSubscriptionRequest $request
+     * @return JsonResponse
      */
     public function destroy(DestroyNewsletterSubscriptionRequest $request)
     {
         NewsletterSubscription::where('email', $request->validated()['email'])->delete();
 
-        return redirect()->back();
+        return response()->json([
+            'message' => 'unsubscribing was successful'
+        ]);
     }
 }

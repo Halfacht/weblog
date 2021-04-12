@@ -29,6 +29,8 @@ export default class Form {
             data.append(key, this[key])
         }
 
+        console.log('formdata', data);
+
         return data;
     }
 

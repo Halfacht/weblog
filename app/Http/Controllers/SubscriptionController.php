@@ -9,16 +9,6 @@ use Illuminate\Http\Request;
 class SubscriptionController extends Controller
 {
     /**
-     * Display a Subscription Page
-     *
-     * @return View
-     */
-    public function index()
-    {
-        return view('subscriptions/index');
-    }
-
-    /**
      * Subscribe to premium content
      */
     public function subscribe()
@@ -34,7 +24,7 @@ class SubscriptionController extends Controller
             ]);
         } else {
             Subscription::where('user_id', $user_id)->update([
-                'last_payment' => $subscription->last_payment->addMonth(1),auth()->user()->id,
+                'last_payment' => $subscription->last_payment->addMonth(1), auth()->user()->id,
                 'end_date' => null,
             ]);
         }

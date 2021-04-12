@@ -9,6 +9,11 @@
                         Home
                     </router-link>
                 </li>
+                <li class="nav-item">
+                    <router-link :to="{ name: 'newsletter-subscription' }" class="nav-link">
+                        Newsletter
+                    </router-link>
+                </li>
 
                 <template v-if="isWriter">
 

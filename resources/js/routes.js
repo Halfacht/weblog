@@ -6,6 +6,7 @@ import Dashboard from './views/Dashboard';
 import CreateBlog from "./views/blogs/Create.vue";
 import ShowBlog from "./views/blogs/Show.vue";
 import CreateCategory from './views/categories/Create.vue';
+import NewsletterSubscription from "./views/subscriptions/NewsletterSubscription";
 
 const routes = [
     {
@@ -49,6 +50,11 @@ const routes = [
         path: "/categories/create",
         name: "categories.create",
         component: CreateCategory,
+    },
+    {
+        path: "/newsletter-subscription",
+        name: "newsletter-subscription",
+        component: NewsletterSubscription
     }
 ];
 
