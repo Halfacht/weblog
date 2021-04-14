@@ -25,13 +25,16 @@ export default class Collection {
     filter(predicate) {
         let result = Object.assign({}, this);
         for (let key in this) {
-            if (this.hasOwnProperty(key)) {
-                if (!predicate(this[key])) {
-                    delete result[key];
-                }
+            if (predicate(this[key])) {
+                console.log('deleting: ', key)
+                delete result[key];
             }
         }
         return result;
+    }
+
+    map(logic) {
+        return this.toArray().map(logic);
     }
 
     includesId(id) {

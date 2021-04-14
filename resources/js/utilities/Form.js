@@ -24,12 +24,10 @@ export default class Form {
         let data = new FormData();
 
         for (let key in this.originalData) {
-            console.log(key, this[key]);
-
-            data.append(key, this[key])
+            if (this[key]) {
+                data.append(key, this[key])
+            }
         }
-
-        console.log('formdata', data);
 
         return data;
     }

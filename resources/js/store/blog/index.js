@@ -4,7 +4,6 @@ import BlogCollection from "../../collections/BlogCollection";
 
 const state = {
     blogs: new BlogCollection(),
-    userBlogs: {},
 }
 
 const getters = {

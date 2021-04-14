@@ -7,6 +7,7 @@ import CreateBlog from "./views/blogs/Create.vue";
 import ShowBlog from "./views/blogs/Show.vue";
 import CreateCategory from './views/categories/Create.vue';
 import NewsletterSubscription from "./views/subscriptions/NewsletterSubscription";
+import Subscription from "./views/subscriptions/Subscription";
 
 const routes = [
     {
@@ -55,7 +56,12 @@ const routes = [
         path: "/newsletter-subscription",
         name: "newsletter-subscription",
         component: NewsletterSubscription
-    }
+    },
+    {
+        path: "/subscription",
+        name: "subscription",
+        component: Subscription,
+    },
 ];
 
 const router = createRouter({

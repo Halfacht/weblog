@@ -19,7 +19,7 @@ export default {
 
     computed: {
         blogs() {
-            return this.$store.getters.blogs.filteredBy(this.filter);
+            return this.$store.getters.blogs.withCategories(this.filter).orderedByLatest();
         }
     },
 };

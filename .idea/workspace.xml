@@ -153,7 +153,7 @@
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.web.browsers" />
+    <property name="settings.editor.selected.configurable" value="fileTemplates" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2020.3.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -188,7 +188,8 @@
       <workItem from="1617956064152" duration="14104000" />
       <workItem from="1617970726807" duration="3963000" />
       <workItem from="1618215357383" duration="741000" />
-      <workItem from="1618216269195" duration="9849000" />
+      <workItem from="1618216269195" duration="9852000" />
+      <workItem from="1618388421326" duration="17861000" />
     </task>
     <servers />
   </component>

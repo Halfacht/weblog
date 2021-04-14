@@ -39,6 +39,21 @@
                     @change="setImage($event)"
                 ></input-field>
 
+                <div class="form-check form-switch mb-3">
+                    <label class="form-check-label" for="is_premium">Premium</label>
+                    <input
+                        id="is_premium"
+                        v-model="form.is_premium"
+                        class="form-check-input"
+                        name="is_premium"
+                        type="checkbox"
+                    />
+                    <div v-if="form.errors.get('is_premium')"
+                         class="invalid-feedback"
+                         v-text="form.errors.get('is_premium')"
+                    ></div>
+                </div>
+
                 <button
                     :disabled="formDisabled"
                     class="btn btn-success"
@@ -53,10 +68,10 @@
 
 <script>
 import {mapGetters} from "vuex";
-import SuccessMessage from "@/components/parts/SuccessMessage.vue";
-import InputField from "@/components/form-parts/InputField.vue";
-import TextAreaField from "@/components/form-parts/TextAreaField.vue";
-import SelectField from "@/components/form-parts/SelectField.vue";
+import SuccessMessage from "../../components/parts/SuccessMessage.vue";
+import InputField from "../../components/form-parts/InputField.vue";
+import TextAreaField from "../../components/form-parts/TextAreaField.vue";
+import SelectField from "../../components/form-parts/SelectField.vue";
 
 const defaultData = {
     title: '',

@@ -7,16 +7,34 @@ export default class BlogCollection extends Collection {
     }
 
     byUser(id) {
-        return this.filter((blog) => blog.user.id === id)
+        let result = new this.constructor(this.toArray());
+
+        for (let key in this) {
+            if (this[key].user.id !== id) {
+                delete result[key];
+            }
+        }
+
+        return result;
     }
 
-    filteredBy(filterIds) {
-        if (filterIds.length > 0) {
-            return this.filter((blog) => {
-                return filterIds.some(id => blog.categories.includesId(id));
-            })
+    withCategories(categoryIds) {
+        if (categoryIds.length > 0) {
+            let result = new this.constructor(this.toArray());
 
+            for (let key in this) {
+                if (!categoryIds.some(id => this[key].categories.includesId(id))) {
+                    delete result[key];
+                }
+            }
+
+            return result;
         }
         return this;
+    }
+
+    orderedByLatest() {
+        return this.toArray()
+            .sort((a, b) => b.created_at.localeCompare(a.created_at));
     }
 }

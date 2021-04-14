@@ -19,10 +19,6 @@ use App\Http\Controllers\SubscriptionController;
 */
 
 # Guest
-Route::get('/skills', function () {
-    return ['Laravel', 'Vue', 'PHP', 'JavaScript'];
-});
-
 Route::resource('categories', CategoryController::class)->only(['index', 'store']);
 
 Route::resource('blogs', BlogController::class)->except(['create', 'edit']);
@@ -36,8 +32,8 @@ Route::post('newsletter-subscription/unsubscribe', [NewsletterSubscriptionContro
 # Auth Middleware
 Route::middleware(['auth'])->group(function () {
 
-    Route::post('subscription/subscribe', [SubscriptionController::class, 'store'])->name('subscription-subscribe');
-    Route::post('subscription/unsubscribe', [SubscriptionController::class, 'destroy'])->name('subscription-unsubscribe');
+    Route::post('subscription/subscribe', [SubscriptionController::class, 'subscribe'])->name('subscription-subscribe');
+    Route::post('subscription/unsubscribe', [SubscriptionController::class, 'unsubscribe'])->name('subscription-unsubscribe');
 });
 
 

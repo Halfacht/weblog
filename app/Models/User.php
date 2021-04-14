@@ -3,8 +3,11 @@
 namespace App\Models;
 
 use App\Traits\HasRoles;
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -46,14 +49,30 @@ class User extends Authenticatable
 
     #endregion Attributes
 
+    #region Accessors & Mutators
+
+    public function getSubscribedAttribute(): bool
+    {
+        return $this->subscription && $this->subscription->end_date === null;
+    }
+
+    public function getCanSeePremiumContentAttribute(): bool
+    {
+        return $this->subscription &&
+            ($this->subscription->end_date === null
+                || $this->subscription->end_date > Carbon::now());
+    }
+
+    #endregion
+
     #region Relationships
 
-    public function subscription()
+    public function subscription(): HasOne
     {
         return $this->hasOne(Subscription::class);
     }
 
-    public function blogs()
+    public function blogs(): HasMany
     {
         return $this->hasMany(Blog::class);
     }

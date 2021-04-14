@@ -4,45 +4,60 @@ namespace App\Http\Controllers;
 
 use App\Models\Subscription;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class SubscriptionController extends Controller
 {
     /**
      * Subscribe to premium content
+     *
+     * @return JsonResponse
      */
-    public function subscribe()
+    public function subscribe(): JsonResponse
     {
-        $subscription = auth()->user()->subcription;
-        $user_id = auth()->user()->id;
+        $user = auth()->user();
 
-        if (!$subscription) {
-            Subscription::create([
-                'user_id' => $user_id,
+        if (!$user->subscription) {
+            $user->subscription()->create([
                 'last_payment' => Carbon::now(),
                 'end_date' => null,
             ]);
         } else {
-            Subscription::where('user_id', $user_id)->update([
-                'last_payment' => $subscription->last_payment->addMonth(1), auth()->user()->id,
+            $user->subscription()->update([
+                'last_payment' => Carbon::parse($user->subscription->last_payment)->addMonth()->toDate(),
                 'end_date' => null,
             ]);
         }
 
-        return redirect()->back();
+        $user->load('subscription');
+        $user->setAppends(['subscribed', 'canSeePremiumContent']);
+
+        return response()->json([
+            'user' => $user,
+            'message' => 'subscribing was successful',
+        ]);
     }
 
     /**
      * Unsubscribe from premium content
+     *
+     * @return JsonResponse
      */
-    public function unsubscribe()
+    public function unsubscribe(): JsonResponse
     {
         $subscription = auth()->user()->subscription;
 
-        $subscription->end_date = $subscription->last_payment->addMonth(1);
+        $subscription->end_date = Carbon::parse($subscription->last_payment)->addMonth()->toDate();
 
         $subscription->save();
 
-        return redirect()->back();
+        $user = auth()->user()->load('subscription');
+        $user->setAppends(['subscribed', 'canSeePremiumContent']);
+
+        return response()->json([
+            'user' => $user,
+            'message' => 'unsubscribing was successful',
+        ]);
     }
 }

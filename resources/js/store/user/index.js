@@ -1,5 +1,5 @@
 import axios from 'axios';
-import router from '@/routes';
+import router from '../../routes';
 
 const state = {
     user: {},
@@ -39,6 +39,41 @@ const actions = {
                 commit('UPDATE_USER', {});
                 router.push('/');
             });
+    },
+    addNewsletterSubscription({}, data) {
+        return new Promise((resolve, reject) => {
+            axios.post('/api/newsletter-subscription/subscribe', data)
+                .then((response) => resolve(response))
+                .catch((error) => reject(error));
+        });
+    },
+    removeNewsletterSubscription({}, data) {
+        return new Promise((resolve, reject) => {
+            axios.post('/api/newsletter-subscription/unsubscribe', data)
+                .then((response) => resolve(response))
+                .catch((error) => reject(error));
+        });
+    },
+    addSubscription({commit}) {
+        return new Promise((resolve, reject) => {
+            axios.post('/api/subscription/subscribe')
+                .then((response) => {
+                    commit('UPDATE_USER', response.data.user)
+                    resolve(response)
+                })
+                .catch((error) => reject(error));
+        });
+    },
+    removeSubscription({commit}) {
+        return new Promise((resolve, reject) => {
+            axios.post('/api/subscription/unsubscribe')
+                .then((response) => {
+
+                    commit('UPDATE_USER', response.data.user)
+                    resolve(response)
+                })
+                .catch((error) => reject(error));
+        });
     },
 
 }

@@ -22,6 +22,7 @@
                             Dashboard
                         </router-link>
                     </li>
+
                     <li class="nav-item">
                         <router-link :to="{ name: 'blogs.create' }" class="nav-link">
                             New Blog
@@ -30,6 +31,11 @@
                     <li class="nav-item">
                         <router-link :to="{ name: 'categories.create' }" class="nav-link">
                             New Category
+                        </router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link :to="{ name: 'subscription' }" class="nav-link">
+                            Subscription
                         </router-link>
                     </li>
 
