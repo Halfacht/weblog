@@ -10,7 +10,7 @@ const getters = {
         return state.user;
     },
     isWriter: state => {
-        return state.user?.role === '1';
+        return state.user?.isWriter;
     },
     auth: state => {
         return state.user.hasOwnProperty('id');

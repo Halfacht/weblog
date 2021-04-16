@@ -31,7 +31,8 @@ class SubscriptionController extends Controller
         }
 
         $user->load('subscription');
-        $user->setAppends(['subscribed', 'canSeePremiumContent']);
+        $user->append('subscribed');
+        $user->append('canSeePremiumContent');
 
         return response()->json([
             'user' => $user,
@@ -53,7 +54,8 @@ class SubscriptionController extends Controller
         $subscription->save();
 
         $user = auth()->user()->load('subscription');
-        $user->setAppends(['subscribed', 'canSeePremiumContent']);
+        $user->append('subscribed');
+        $user->append('canSeePremiumContent');
 
         return response()->json([
             'user' => $user,

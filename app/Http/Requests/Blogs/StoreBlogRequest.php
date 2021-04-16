@@ -14,7 +14,7 @@ class StoreBlogRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()?->isWriter();
+        return auth()->user()?->is_writer;
     }
 
     /**

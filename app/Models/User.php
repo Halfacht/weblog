@@ -15,7 +15,7 @@ class User extends Authenticatable
 {
     #region Attributes
 
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -47,9 +47,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $appends = ['isWriter'];
+
     #endregion Attributes
 
     #region Accessors & Mutators
+
+    public function getIsWriterAttribute(): bool
+    {
+        return $this->role === '1' || $this->role === 1;
+    }
 
     public function getSubscribedAttribute(): bool
     {

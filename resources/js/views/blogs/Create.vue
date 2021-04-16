@@ -2,7 +2,8 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h1>Create new Blog</h1>
+                <h1 v-if="id">Update Blog</h1>
+                <h1 v-else>Create New Blog</h1>
             </div>
         </div>
 
@@ -118,13 +119,15 @@ export default {
     },
 
     created() {
-        // this.$store.dispatch('getCategories');
+        // this.$store.dispatch('getCategories'); // Loaded in App.vue
 
         // Load Blog for Update
         if (this.id) {
             this.$store.dispatch('getBlog', this.id)
-                .then(() =>
-                    this.form = new Form(this.$store.getters.blog)
+                .then(() => {
+                        this.form = new Form(this.$store.getters.blogById(this.id))
+
+                    }
                 );
         }
     },

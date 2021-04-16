@@ -28,7 +28,8 @@ class AuthenticatedSessionController extends Controller
 
         $user = auth()->user();
         $user->load('subscription');
-        $user->setAppends(['subscribed', 'canSeePremiumContent']);
+        $user->append('subscribed');
+        $user->append('canSeePremiumContent');
 
         return response()->json([
             'message' => 'login successful',

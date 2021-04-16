@@ -42,15 +42,8 @@ const actions = {
         axios.get('/api/blogs')
             .then((response) => commit('UPDATE_BLOGS', response.data));
     },
-    // getBlogsFromAuthUser({commit, getters},) {
-    //     if (getters.user.id) {
-    //         axios.get(`/api/users/${getters.user.id}/blogs`)
-    //             .then((response) => commit('UPDATE_BLOGS', response.data))
-    //     }
-    // },
     getBlog({commit}, id) {
         return new Promise((resolve, reject) => {
-
             axios.get('/api/blogs/' + id)
                 .then((response) => {
                     commit('ADD_BLOG', response.data);
