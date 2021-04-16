@@ -23,6 +23,14 @@ export default class Blog {
         return defaultData;
     }
 
+    get is_premium() {
+        return this._is_premium;
+    }
+
+    set is_premium(value) {
+        this._is_premium = !/^(?:f(?:alse)?|no?|0+)$/i.test(value) && !!value;
+    }
+
     get momentAgo() {
         return moment(this.created_at).fromNow();
     }

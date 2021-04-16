@@ -26,7 +26,6 @@ export default class Collection {
         let result = Object.assign({}, this);
         for (let key in this) {
             if (predicate(this[key])) {
-                console.log('deleting: ', key)
                 delete result[key];
             }
         }

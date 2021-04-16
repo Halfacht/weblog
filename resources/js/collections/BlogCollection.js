@@ -33,6 +33,21 @@ export default class BlogCollection extends Collection {
         return this;
     }
 
+    withPremium(canSeePremiumContent) {
+        if (canSeePremiumContent) {
+            return this;
+        }
+        let result = new this.constructor(this.toArray());
+
+        for (let key in this) {
+            if (this[key].is_premium) {
+                delete result[key];
+            }
+        }
+
+        return result;
+    }
+
     orderedByLatest() {
         return this.toArray()
             .sort((a, b) => b.created_at.localeCompare(a.created_at));

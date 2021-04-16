@@ -13,8 +13,8 @@
                 >
                 <label :for="category.name" class="form-check-label">{{ category.name }}</label>
             </div>
-            <div>
-                <button class="btn btn-outline-secondary" @click="clearFilters">X Clear filters</button>
+            <div class="my-1">
+                <button class="btn btn-outline-secondary" @click="clearFilter">X Clear filters</button>
             </div>
         </div>
     </div>
@@ -50,8 +50,8 @@ export default {
         }
     },
     methods: {
-        clearFilters() {
-            this.filters = [];
+        clearFilter() {
+            this.filter = [];
         }
     },
 

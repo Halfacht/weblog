@@ -7,8 +7,8 @@ const state = {
 }
 
 const getters = {
-    blogs: state => {
-        return state.blogs;
+    blogs(state, getters, rootState) {
+        return state.blogs.withPremium(rootState.user.user.canSeePremiumContent);
     },
     blogById: (state) => (id) => {
         if (typeof id === 'string') {

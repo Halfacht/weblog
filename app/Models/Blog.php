@@ -22,7 +22,7 @@ class Blog extends Model
      *
      * @var array
      */
-    protected $with = ['user', 'categories'];
+    protected $with = ['user', 'categories:id,name'];
 
     #region Relationships
 

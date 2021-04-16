@@ -39,7 +39,6 @@ export default {
         toTitle: titleCase,
         updateValue(select) {
             let value = [...select.selectedOptions].map(option => option.value);
-            console.log(value)
 
             this.$emit("update:modelValue", value); // @todo: this unselects current options, because of that only 2 options can be stored in the model
         },

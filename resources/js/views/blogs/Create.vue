@@ -114,7 +114,6 @@ export default {
         setImage(event) {
             this.form.errors.clear('image');
             this.form.image = event.target.files[0];
-            console.log(this.form.image)
         }
     },
 
