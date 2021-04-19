@@ -148,7 +148,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/js/store/subscription" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../marktplaats" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -192,7 +192,7 @@
       <workItem from="1618388421326" duration="18146000" />
       <workItem from="1618561361064" duration="2096000" />
       <workItem from="1618574634267" duration="5373000" />
-      <workItem from="1618820449526" duration="2277000" />
+      <workItem from="1618820449526" duration="7862000" />
     </task>
     <servers />
   </component>
