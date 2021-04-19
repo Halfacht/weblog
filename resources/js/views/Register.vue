@@ -69,7 +69,7 @@ export default {
 
     methods: {
         register() {
-            this.form.action(this.$store, "/api/register");
+            this.form.action(this.$store, "register");
         },
     },
 };
