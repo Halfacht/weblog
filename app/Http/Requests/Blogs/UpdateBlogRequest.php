@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Blogs;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class UpdateBlogRequest extends FormRequest
 {
@@ -30,5 +29,14 @@ class UpdateBlogRequest extends FormRequest
             'image' => ['nullable', 'image'],
             'is_premium' => ['nullable', 'boolean'],
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        //@todo: 'title' and 'content' are undefined. (Using FormData)
+        $this->merge([
+            'is_premium' => filter_var($this->is_premium, FILTER_VALIDATE_BOOLEAN),
+            'categories' => explode(',', $this->categories),
+        ]);
     }
 }

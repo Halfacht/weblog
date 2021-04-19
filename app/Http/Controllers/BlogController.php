@@ -9,7 +9,6 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Symfony\Component\Console\Input\Input;
 
 class BlogController extends Controller
 {
@@ -38,7 +37,7 @@ class BlogController extends Controller
      */
     public function show(Blog $blog): JsonResponse
     {
-        $blog->load('user', 'comments');
+        $blog->load('comments');
 
         return response()->json($blog);
     }
@@ -55,7 +54,6 @@ class BlogController extends Controller
         if ($request['image']) {
             $path = Storage::putFile('images', $request->file('image'));
 //            $path = $request->file('image')->store('images');
-//            $path = Storage::put($request->file('image')->getClientOriginalName(), $request['image']);
             $request['image'] = $path;
         }
 
@@ -65,8 +63,7 @@ class BlogController extends Controller
 
         $blog->categories()->attach($request['categories']);
 
-
-        $blog->load('user');
+        $blog->refresh();
 
         return response()->json([
             'message' => 'Blog stored succesfully',
@@ -81,11 +78,13 @@ class BlogController extends Controller
      * @param Blog $blog
      * @return JsonResponse
      */
-    public function update(UpdateBlogRequest $request, Blog $blog)
+    public function update(UpdateBlogRequest $request, Blog $blog): JsonResponse
     {
-        $blog = $blog->update($request->validated());
+        $blog->update($request->validated());
 
-        return response()->json(['message' => 'Blog is succesfully updated', 'blog' => $blog]);
+        $blog->refresh();
+
+        return response()->json(['message' => 'Blog is successfully updated', 'blog' => $blog]);
     }
 
     /**
@@ -93,6 +92,7 @@ class BlogController extends Controller
      *
      * @param Blog $blog
      * @return JsonResponse
+     * @throws \Exception
      */
     public function destroy(Blog $blog): JsonResponse
     {

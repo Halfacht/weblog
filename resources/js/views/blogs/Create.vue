@@ -126,7 +126,6 @@ export default {
             this.$store.dispatch('getBlog', this.id)
                 .then(() => {
                         this.form = new Form(this.$store.getters.blogById(this.id))
-
                     }
                 );
         }

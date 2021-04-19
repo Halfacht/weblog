@@ -66,7 +66,7 @@ const actions = {
     },
     updateBlog({commit}, data) {
         return new Promise((resolve, reject) => {
-            axios.put(`/api/blogs/${data.id}`, data, {
+            axios.post(`/api/blogs/${data.get('id')}`, data, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

@@ -21,7 +21,14 @@ use App\Http\Controllers\SubscriptionController;
 # Guest
 Route::resource('categories', CategoryController::class)->only(['index', 'store']);
 
-Route::resource('blogs', BlogController::class)->except(['create', 'edit']);
+//Route::resource('blogs', BlogController::class)->except(['create', 'edit']);
+# region because put didn't work
+Route::get('blogs', [BlogController::class, 'index']);
+Route::post('blogs', [BlogController::class, 'store']);
+Route::get('blogs/{blog}', [BlogController::class, 'show']);
+Route::post('blogs/{blog}', [BlogController::class, 'update']);
+Route::delete('blogs/{blog}', [BlogController::class, 'destroy']);
+#endregion
 Route::get('users/{user}/blogs', [BlogController::class, 'byUser']);
 
 Route::resource('blogs/{blog}/comments', CommentController::class)->only(['store']);
